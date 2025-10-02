@@ -36,6 +36,11 @@
                             <button type="submit" class="form-control btn btn-primary">Login</button>
                         </div>
                     </div>
+                    <div class="row mt3">
+                      <div class="col-md-12 text-end text-white">
+                         No account Yet? <a href="signup.html">Sign Up</a>
+                      </div>
+                    </div>
                     
                 </div>  
             </div>
@@ -45,11 +50,12 @@
 $(document).ready(function () {
   // Custom method for password validation
   $.validator.addMethod("strongPassword", function (value, element) {
-    return this.optional(element) 
-      || /[A-Z]/.test(value)     // at least 1 uppercase
-      && /[0-9]/.test(value)     // at least 1 number
-      && /[^A-Za-z0-9]/.test(value) // at least 1 symbol
-      && value.length >= 8;      // min length 8
+    return this.optional(element) || (
+      /[A-Z]/.test(value) &&      // at least 1 uppercase
+      /[0-9]/.test(value) &&      // at least 1 number
+      /[^A-Za-z0-9]/.test(value) && // at least 1 symbol
+      value.length >= 8           // min length 8
+    );
   }, "Password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.");
 
   $("#myForm").validate({
@@ -73,13 +79,12 @@ $(document).ready(function () {
       }
     },
     submitHandler: function (form) {
-      //form.submit();
-      let em=$("#email").val();
-      let pw=$("#pw").val();
-      if(em=='castillorochelle27@gmail.com' && pw=='Castillo_14'){
+      let em = $("#email").val();
+      let pw = $("#pw").val();
+      if (em === 'castillorochelle27@gmail.com' && pw === 'Castillo_14') {
         alert("Welcome");
-        window.open("main.html","_self");
-      }else{
+        window.open("main.html", "_self");
+      } else {
         alert("Incorrect Username or Password!");
       }
     }
@@ -128,6 +133,10 @@ a{
 #logo{
     width:100%;
     height: auto;
+}
+label.error {
+    color: yellow;
+    font-size: 14px;
 }
 
 </style>

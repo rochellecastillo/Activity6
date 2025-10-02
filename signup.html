@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+        <link rel="stylesheet" href="bootstrap-5.3.8/dist/css/bootstrap.min.css">
+        <script src="bootstrap-5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form id="myForm">
+        <div class="row justify-content-center">
+            <div class="col-md-4 p pb-5 mt-1" id="login-form">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img class="rounded-circle" src="images/logo.jpg" alt="Logo" id="logo">
+                    </div>
+                    <div class="col-md-8 text-white"><h1>Signup</h1></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label for="fn" class="text-white">Firstname</label>
+                        <input type="text" class="form-control" name="fn" id="fn">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="ln" class="text-white">Lastname</label>
+                        <input type="text" class="form-control" name="ln" id="ln">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="un" class="text-white">Email</label>
+                        <input type="email" class="form-control" name="email" id="email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="pw" class="text-white">Password</label>
+                        <input type="password" class="form-control"name="pw" id="pw">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="bdate" class="text-white">Birthdate</label>
+                        <input type="date" class="form-control" name="bdate" id="bdate">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="tel" class="text-white">Phone Number</label>
+                        <input type="phone" class="form-control" name="phone" id="phone">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="agree" id="agree">
+                            <label for="agree" class="form-check-label text-info">I have read and agree with the TOSA</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="form-control btn btn-primary">Sign up</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-10 text-white text-end">
+                        Already have an account? <a href="index.html">Sign In</a>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+        // Custom method for password validation
+        $.validator.addMethod("strongPassword", function (value, element) {
+            return this.optional(element) 
+            || /[A-Z]/.test(value)     // at least 1 uppercase
+            && /[0-9]/.test(value)     // at least 1 number
+            && /[^A-Za-z0-9]/.test(value) // at least 1 symbol
+            && value.length >= 8;      // min length 8
+        }, "Password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.");
+
+        $("#myForm").validate({
+            rules: {
+                ln: {
+                    required: true
+                },
+                fn: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                pw: {
+                    required: true,
+                    strongPassword: true
+                },
+                bdate: {
+                    required: true,
+                    date: true
+                },
+                phone: {
+                    required: true,
+                    digits: true,
+                    minlength:11,
+                    maxlength:13
+                },
+                agree:{
+                    required: true
+                }   
+            },
+            errorPlacement: function(error, element) {
+                if (element.attr("name") == "agree") {
+                    error.insertAfter(element.closest(".form-check")); 
+                } else {
+                    error.insertAfter(element);
+                }
+            },  
+            messages: {
+            email: {
+                required: "Please enter your email",
+                email: "Enter a valid email address"
+            },
+            pw: {
+                required: "Please provide a password"
+            },
+            ln:{
+                required:"Please provide a Lastname"
+            },
+            fn:{
+                required:"Please provide a Firstname"
+            },
+            bdate:{
+                required: "Please provide your Birthdate"
+            },
+            phone: {
+                required: "Please enter a phone number",
+                minlength:"Min-length is 11",
+                maxlength: "Max-length is 13"
+            },agree:{
+                required: "You must agree to continue"
+            }
+            },
+            submitHandler: function (form) {
+            //form.submit();
+            
+            }
+        });
+        });
+    </script>
+
+</body>
+</html>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("images/back1.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(10px);
+    z-index: -1;     
+}
+
+#login-form {
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);  
+    border-radius: 15px;
+    padding: 20px;
+}
+a{
+    color: aqua;
+}
+#logo{
+    width:100%;
+    height: auto;
+}
+
+label.error {
+    color: yellow;
+    font-size: 14px;
+}
+</style>
