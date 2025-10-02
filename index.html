@@ -73,8 +73,14 @@ $(document).ready(function () {
       }
     },
     submitHandler: function (form) {
-      alert("Form submitted successfully!");
-      form.submit(); // or AJAX
+      //form.submit();
+      let em=$("#email").val();
+      let pw=$("#pw").val();
+      if(em=='castillorochelle27@gmail.com' && pw=='Castillo_14'){
+        alert("Welcome");
+      }else{
+        alert("Incorrect Username or Password!");
+      }
     }
   });
 });
